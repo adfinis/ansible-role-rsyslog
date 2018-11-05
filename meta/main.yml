@@ -3,6 +3,7 @@
 dependencies: []
 
 galaxy_info:
+  role_name: 'rsyslog'
   author: 'Adfinis SyGroup AG'
   description: 'Install and configure rsyslog'
   company: 'Adfinis SyGroup AG'
