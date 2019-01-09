@@ -1,0 +1,6 @@
+---
+rsyslog_loggers:
+  - file: local2_imudp_logger.conf
+    rules:
+    - facility: "local2.*"
+      file: "/var/log/local2_imudp_logger.log"
