@@ -1,6 +1,17 @@
 ---
-rsyslog_loggers:
-  - file: local2_imudp_logger.conf
+
+# set 'yes' to enable udp input module
+rsyslog_imudp: no
+# set 'yes' to create and include 'rsyslog_include_files'
+rsyslog_include: no
+
+# config files created under 'rsyslog_cfg_dir' and included in 'rsyslog_cfg'
+rsyslog_include_files:
+    # config file name
+  - file: local2_imudp.conf
+    # sysklogd style ruleset, maps selectors to actions
     rules:
-    - facility: "local2.*"
-      file: "/var/log/local2_imudp_logger.log"
+      # facility and priority, seperated by '.'
+    - selector: "local2.*"
+      # logfile
+      action: "/var/log/local2_imudp_logger.log"

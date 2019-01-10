@@ -5,21 +5,25 @@
     dest: '{{ rsyslog_cfg }}'
     regexp: '\\$ModLoad imudp'
     line: '$ModLoad imudp'
+  when: rsyslog_imudp
 
 - name: ensure rsyslogd udp reception port not commented/disabled
   lineinfile:
     dest: '{{ rsyslog_cfg }}'
     regexp: '\\$UDPServerRun 514'
     line: '$UDPServerRun 514'
+  when: rsyslog_imudp
 
 - name: create rsyslogd config files
   template:
-    src: etc/rsyslog.d/logger.conf.j2
+    src: etc/rsyslog.d/include.conf.j2
     dest: '{{ rsyslog_cfg_dir }}/{{ item.file }}'
+    setype: syslog_conf_t
     owner: root
     group: root
     mode: 0644
   vars:
-    logging_rules: '{{ item.rules }}'
-  with_items: '{{ rsyslog_loggers }}'
+    rsyslog_rules: '{{ item.rules }}'
+  with_items: '{{ rsyslog_include_files }}'
+  when: rsyslog_include
   notify: rsyslog restart daemon
