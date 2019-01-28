@@ -3,14 +3,14 @@
 - name: ensure rsyslogd udp reception not commented/disabled
   lineinfile:
     dest: '{{ rsyslog_cfg }}'
-    regexp: '\\$ModLoad imudp'
+    regexp: '^\#\$ModLoad imudp$'
     line: '$ModLoad imudp'
   when: rsyslog_imudp
 
 - name: ensure rsyslogd udp reception port not commented/disabled
   lineinfile:
     dest: '{{ rsyslog_cfg }}'
-    regexp: '\\$UDPServerRun 514'
+    regexp: '^\#\$UDPServerRun 514$'
     line: '$UDPServerRun 514'
   when: rsyslog_imudp
 
